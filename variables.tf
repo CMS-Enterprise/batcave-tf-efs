@@ -12,7 +12,9 @@ variable "iam_path" {
 }
 
 variable "permissions_boundary" {
-  default = "arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"
+  default = ""
+## check this value in common.hcl file for dev
+#arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
 }
 
 
@@ -30,39 +32,8 @@ variable "helm_name" {
   default = "aws-efs-csi-driver"
 }
 
-variable "self_managed_node_groups" {
-  type = map(any)
-}
-
-# ENIConfig Variables
-variable "vpc_eni_subnets" {
-  type = map(any)
-}
-
-variable "worker_security_group_id" {
-  type = string
-}
-
-
-
 variable "cluster_oidc_issuer_url" {}
 
 
 
 
-# Pod limit values
-variable "cpu_limits" {
-  default = "50m"
-}
-
-variable "cpu_requests" {
-  default = "10m"
-}
-
-variable "memory_limits" {
-  default = "512Mi"
-}
-
-variable "memory_requests" {
-  default = "50Mi"
-}
