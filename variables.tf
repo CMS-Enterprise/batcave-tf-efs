@@ -2,10 +2,7 @@ variable "cluster_name" {}
 variable "cluster_endpoint" {}
 variable "cluster_certificate_authority_data" {}
 
-### Karpenter IAM variables
-variable "worker_iam_role_name" {
-  default = ""
-}
+
 
 variable "iam_path" {
   default = "/delegatedadmin/developer/"
