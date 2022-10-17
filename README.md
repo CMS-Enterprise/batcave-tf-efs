@@ -1,6 +1,6 @@
 ## Requirements
 
- * Aws efs creation and needs efs id
+ * Aws elastic file system should be created and file system id shoud be supplied to this chart
 
 ## Providers
 
