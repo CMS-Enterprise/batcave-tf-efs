@@ -27,7 +27,58 @@ resource "helm_release" "aws-efs-csi-driver" {
      name = "controller.tags.cluster-name"
      value = var.cluster_name
   }
+  set {
+    name = "storageClasses[0].name"
+    value = "efs-sc"
+    }
+  set {
+    name = "storageClasses[0].mountOptions"
+    value = "{tls}"
+  }
+  set {
+    name = "storageClasses[0].parameters.provisioningMode"
+    value = "efs-ap"
+  }
+  set {
+    name = "storageClasses[0].parameters.fileSystemId"
+    value = "var.efsid"
+  }
+  set {
+    name = "storageClasses[0].parameters.basePath"
+    value = "/dynamic_provisioning"
   }
 
- 
+  set {
+    name = "storageClasses[0].parameters.directoryPerms"
+    value = "700"
+    type  = "string"
+  }
+  set {
+    name = "storageClasses[0].parameters.gidRangeStart"
+    value = "1000"
+    type  = "string"
+  }
+  set {
+    name = "storageClasses[0].parameters.gidRangeEnd"
+    value = "2000"
+    type  = "string"
+  }
 
+  set {
+    name = "storageClasses[0].reclaimPolicy"
+    value = "Retain"
+   
+  }
+    set {
+    name = "storageClasses[0].volumeBindingMode"
+    value = "Immediate"
+   
+  }
+
+
+  
+  
+  }
+
+
+ 

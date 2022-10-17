@@ -27,6 +27,10 @@ variable "helm_namespace" {
 variable "imagerepo" {
   default = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
 }
+variable "efsid" {
+  default = ""
+  
+}
 
 variable "helm_name" {
   default = "aws-efs-csi-driver"
