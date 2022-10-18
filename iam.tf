@@ -8,8 +8,6 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
     actions = [
       "elasticfilesystem:DescribeAccessPoints",
       "elasticfilesystem:DescribeFileSystems",
-      "sts:AssumeRoleWithWebIdentity",
-
     ]
 
     resources = ["*"]
