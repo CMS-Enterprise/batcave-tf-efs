@@ -10,8 +10,8 @@ variable "iam_path" {
 
 variable "permissions_boundary" {
   default = ""
-## check this value in common.hcl file for dev
-#arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
+  ## check this value in common.hcl file for dev
+  #arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
 }
 
 
@@ -20,13 +20,13 @@ variable "helm_namespace" {
   default = "kube-system"
 }
 
-## Image repo 
+## Image repo
 variable "imagerepo" {
   default = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
 }
 variable "efsid" {
   default = ""
-  
+
 }
 
 variable "helm_name" {
@@ -34,7 +34,3 @@ variable "helm_name" {
 }
 
 variable "cluster_oidc_issuer_url" {}
-
-
-
-
