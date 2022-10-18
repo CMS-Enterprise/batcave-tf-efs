@@ -1,6 +1,7 @@
+# batcave-tf-efs
 ## Requirements
 
- * Aws efs creation and needs efs id
+ * Aws elastic file system should be created and file system id shoud be supplied to this chart
 
 ## Providers
 
@@ -31,7 +32,7 @@ No modules.
 | <a name="input_iam_path"></a> [iam\_path](#input\_iam\_path) | n/a | `string` | `"/delegatedadmin/developer/"` | no |
 | <a name="input_permissions_boundary"></a> [permissions\_boundary](#input\_permissions\_boundary) | n/a | `string` | `"arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy"` | no |
 | <a name="input_provider_url"></a> [provider\_url](#input\_provider\_url) | n/a | `string` | `""` | no |
-| <a name="input_efsid"></a> [efsid\](#input\_cluster\_name) | n/a | `any` | n/a | yes |
+| <a name="input_efsid"></a> efsid | n/a | `elasticfilesystem` | n/a | yes |
 
 
 ## Outputs
