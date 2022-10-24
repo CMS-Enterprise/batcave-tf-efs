@@ -39,7 +39,7 @@ resource "helm_release" "aws-efs-csi-driver" {
   }
   set {
     name  = "storageClasses[0].parameters.fileSystemId"
-    value = "${aws_efs_file_system.efs.id}"
+    value = aws_efs_file_system.efs.id
   }
   set {
     name  = "storageClasses[0].parameters.basePath"
