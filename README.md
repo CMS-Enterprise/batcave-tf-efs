@@ -18,7 +18,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_iam_policy.batcave_autoscaler](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.batcave_efscsidriver](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role_policy_attachment.efsscidriver_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [helm_release.aws_efs_csi_diver](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [aws_eks_cluster.cluster](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) | data source |
