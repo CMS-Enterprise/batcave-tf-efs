@@ -26,7 +26,6 @@ variable "imagerepo" {
 }
 variable "efsid" {
   default = ""
-
 }
 
 variable "helm_name" {
@@ -34,3 +33,7 @@ variable "helm_name" {
 }
 
 variable "cluster_oidc_issuer_url" {}
+
+variable "kms_key_id" {
+  default = ""
+}
