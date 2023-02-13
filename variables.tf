@@ -37,3 +37,7 @@ variable "cluster_oidc_issuer_url" {}
 variable "kms_key_id" {
   default = ""
 }
+
+variable "vpc_id" {
+  default = ""
+}
