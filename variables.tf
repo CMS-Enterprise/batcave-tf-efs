@@ -41,3 +41,8 @@ variable "kms_key_id" {
 variable "vpc_id" {
   default = ""
 }
+
+variable "private_subnet_ids" {
+  type = list
+  default = []
+}
