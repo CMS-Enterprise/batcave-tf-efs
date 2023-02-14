@@ -34,7 +34,7 @@ variable "helm_name" {
 
 variable "cluster_oidc_issuer_url" {}
 
-variable "kms_key_id" {
+variable "key_id" {
   default = ""
 }
 
