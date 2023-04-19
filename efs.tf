@@ -16,6 +16,9 @@ resource "aws_efs_file_system" "efs" {
   tags = {
     Name = "${var.cluster_name}"
   }
+  lifecycle_policy {
+    transition_to_ia = "AFTER_60_DAYS"
+  }
 }
 
 resource "aws_efs_mount_target" "efs" {
@@ -23,4 +26,11 @@ resource "aws_efs_mount_target" "efs" {
   file_system_id  = aws_efs_file_system.efs.id
   subnet_id       = each.key
   security_groups = [aws_security_group.efs.id]
+}
+resource "aws_efs_backup_policy" "policy" {
+  file_system_id = aws_efs_file_system.efs.id
+
+  backup_policy {
+    status = "ENABLED"
+  }
 }
