@@ -3,6 +3,8 @@ locals {
   k8s_service_account_name      = "aws-efs-csi-driver"
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "batcave_efscsidriver" {
   statement {
     actions = [
@@ -11,8 +13,8 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
     ]
 
     resources = [
-      "arn:aws:elasticfilesystem:*:190002946201:file-system/${aws_efs_file_system.efs.id}",
-      "arn:aws:elasticfilesystem:*:190002946201:access-point/*"
+      "arn:aws:elasticfilesystem:*:${data.aws_caller_identity.current.account_id}:file-system/${aws_efs_file_system.efs.id}",
+      "arn:aws:elasticfilesystem:*:${data.aws_caller_identity.current.account_id}:access-point/*"
     ]
   }
 
