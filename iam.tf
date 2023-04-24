@@ -10,25 +10,10 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
       "elasticfilesystem:DescribeFileSystems",
     ]
 
-    resources = ["*"]
-
-  }
-  statement {
-    actions = [
-      "elasticfilesystem:CreateAccessPoint",
-      "elasticfilesystem:DeleteAccessPoint"
+    resources = [
+      "arn:aws:elasticfilesystem:*:190002946201:file-system/${aws_efs_file_system.efs.id}",
+      "arn:aws:elasticfilesystem:*:190002946201:access-point/*"
     ]
-    resources = ["*"]
-    condition {
-      test     = "ForAnyValue:StringEquals"
-      variable = "aws:ResourceTag/efs.csi.aws.com/cluster"
-      values   = ["true"]
-    }
-    condition {
-      test     = "ForAnyValue:StringEquals"
-      variable = "aws:RequestTag/cluster-name"
-      values   = ["${var.cluster_name}"]
-    }
   }
 
 }
