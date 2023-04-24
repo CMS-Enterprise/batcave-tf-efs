@@ -12,6 +12,14 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
       "elasticfilesystem:DescribeFileSystems",
     ]
 
+    resources = ["*"]
+
+  }
+  statement {
+    actions = [
+      "elasticfilesystem:CreateAccessPoint",
+      "elasticfilesystem:DeleteAccessPoint"
+    ]
     resources = [
       "arn:aws:elasticfilesystem:*:${data.aws_caller_identity.current.account_id}:file-system/${aws_efs_file_system.efs.id}",
       "arn:aws:elasticfilesystem:*:${data.aws_caller_identity.current.account_id}:access-point/*"
