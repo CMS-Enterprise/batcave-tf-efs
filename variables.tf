@@ -24,9 +24,9 @@ variable "helm_namespace" {
 variable "imagerepo" {
   default = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
 }
+
 variable "efsid" {
   default = ""
-
 }
 
 variable "helm_name" {
@@ -34,3 +34,16 @@ variable "helm_name" {
 }
 
 variable "cluster_oidc_issuer_url" {}
+
+variable "kms_key_id" {
+  default = ""
+}
+
+variable "vpc_id" {
+  default = ""
+}
+
+variable "private_subnet_ids" {
+  type    = list(any)
+  default = []
+}
