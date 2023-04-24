@@ -19,11 +19,6 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
       "elasticfilesystem:DeleteAccessPoint"
     ]
     resources = ["*"]
-    condition {
-      test     = "ForAnyValue:StringEquals"
-      variable = "aws:RequestTag/cluster-name"
-      values   = ["${var.cluster_name}"]
-    }
   }
 
 }
