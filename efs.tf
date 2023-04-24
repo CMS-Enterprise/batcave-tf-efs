@@ -4,7 +4,7 @@ resource "aws_security_group" "efs" {
 }
 
 data "aws_kms_key" "efs" {
-  key_id = var.key_id
+  key_id = var.kms_key_id
 }
 
 resource "aws_efs_file_system" "efs" {
