@@ -69,19 +69,19 @@ resource "helm_release" "aws-efs-csi-driver" {
     value = "Immediate"
   }
   set {
-    name  = "vmselect.tolerations[0].key"
+    name  = "node.tolerations[0].key"
     value = var.toleration_key
   }
   set {
-    name  = "vmselect.tolerations[0].value"
+    name  = "node.tolerations[0].value"
     value = var.toleration_value
   }
   set {
-    name  = "vmselect.tolerations[0].operator"
+    name  = "node.tolerations[0].operator"
     value = var.toleration_operator
   }
   set {
-    name  = "vmselect.tolerations[0].effect"
+    name  = "node.tolerations[0].effect"
     value = var.toleration_effect
   }
 }
