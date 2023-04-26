@@ -16,21 +16,25 @@ variable "permissions_boundary" {
 
 variable "toleration_key" {
   type        = string
+  default     = ""
   description = "toleration key"
 }
 
 variable "toleration_value" {
   type        = string
+  default     = ""
   description = "toleration value"
 }
 
 variable "toleration_operator" {
   type        = string
+  default     = ""
   description = "toleration operator"
 }
 
 variable "toleration_effect" {
   type        = string
+  default     = ""
   description = "toleration effect"
 }
 
