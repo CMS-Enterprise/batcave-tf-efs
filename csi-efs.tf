@@ -68,20 +68,13 @@ resource "helm_release" "aws-efs-csi-driver" {
     name  = "storageClasses[0].volumeBindingMode"
     value = "Immediate"
   }
-  set {
-    name  = "controller.tolerations[0].key"
-    value = var.toleration_key
-  }
-  set {
-    name  = "controller.tolerations[0].value"
-    value = var.toleration_value
-  }
-  set {
-    name  = "controller.tolerations[0].operator"
-    value = var.toleration_operator
-  }
-  set {
-    name  = "controller.tolerations[0].effect"
-    value = var.toleration_effect
+  dynamic "toleration" {
+    for_each = var.tolerations
+    content {
+      key      = toleration.value["key"]
+      operator = toleration.value["operator"]
+      value    = toleration.value["value"]
+      effect   = toleration.value["effect"]
+    }
   }
 }
