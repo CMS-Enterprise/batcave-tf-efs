@@ -14,6 +14,29 @@ variable "permissions_boundary" {
   #arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
 }
 
+variable "toleration_key" {
+  type        = string
+  default     = ""
+  description = "toleration key"
+}
+
+variable "toleration_value" {
+  type        = string
+  default     = ""
+  description = "toleration value"
+}
+
+variable "toleration_operator" {
+  type        = string
+  default     = ""
+  description = "toleration operator"
+}
+
+variable "toleration_effect" {
+  type        = string
+  default     = ""
+  description = "toleration effect"
+}
 
 ### Helm variables
 variable "helm_namespace" {
