@@ -32,7 +32,7 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
   }
   statement {
     effect = "Allow"
-    action = [
+    actions = [
       "elasticfilesystem:TagResource"
     ]
     resources = ["*"]
@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
 
   statement {
     effect    = "Allow"
-    action    = "elasticfilesystem:DeleteAccessPoint"
+    actions    = ["elasticfilesystem:DeleteAccessPoint"]
     resources = ["*"]
     condition {
       test     = "StringLike"
