@@ -1,72 +1,81 @@
-variable "cluster_name" {}
-variable "cluster_endpoint" {}
-variable "cluster_certificate_authority_data" {}
+variable "cluster_name" {
+  description = "Name of EKS cluster"
+}
 
+variable "cluster_endpoint" {
+  description = "Endpoint for EKS cluster"
+}
 
+variable "cluster_certificate_authority_data" {
+  description = "CA certificate data for EKS cluster"
+}
 
 variable "iam_path" {
-  default = "/delegatedadmin/developer/"
+  description = "Path for IAM roles"
+  default     = "/delegatedadmin/developer/"
 }
 
 variable "permissions_boundary" {
-  default = ""
-  ## check this value in common.hcl file for dev
-  #arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
+  description = "Permissions boundary for IAM roles"
+  default     = ""
 }
 
 variable "toleration_key" {
-  type        = string
+  description = "Key for pod tolerations"
   default     = ""
-  description = "toleration key"
 }
 
 variable "toleration_value" {
-  type        = string
+  description = "Value for pod tolerations"
   default     = ""
-  description = "toleration value"
 }
 
 variable "toleration_operator" {
-  type        = string
+  description = "Operator for pod tolerations"
   default     = ""
-  description = "toleration operator"
 }
 
 variable "toleration_effect" {
-  type        = string
+  description = "Effect for pod tolerations"
   default     = ""
-  description = "toleration effect"
 }
 
-### Helm variables
 variable "helm_namespace" {
-  default = "kube-system"
+  description = "Namespace for Helm chart"
+  default     = "kube-system"
 }
 
-## Image repo
 variable "imagerepo" {
-  default = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
+  description = "ECR repository for container images"
+  default     = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
 }
 
 variable "efsid" {
-  default = ""
+  description = "EFS filesystem ID"
+  default     = ""
 }
 
 variable "helm_name" {
-  default = "aws-efs-csi-driver"
+  description = "Name for Helm release"
+  default     = "aws-efs-csi-driver"
 }
 
-variable "cluster_oidc_issuer_url" {}
+variable "cluster_oidc_issuer_url" {
+  description = "OIDC issuer URL for EKS cluster"
+}
 
 variable "kms_key_id" {
-  default = ""
+  description = "KMS key ID for secrets encryption"
+  default     = ""
 }
 
 variable "vpc_id" {
-  default = ""
+  description = "VPC ID for EKS cluster"
+  default     = ""
 }
 
 variable "private_subnet_ids" {
-  type    = list(any)
-  default = []
+  description = "IDs of private subnets in VPC"
+  type        = list(any)
+  default     = []
 }
