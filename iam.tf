@@ -6,15 +6,54 @@ locals {
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "batcave_efscsidriver" {
+
   statement {
+    effect = "Allow"
     actions = [
       "elasticfilesystem:DescribeAccessPoints",
       "elasticfilesystem:DescribeFileSystems",
+      "elasticfilesystem:DescribeMountTargets",
+      "ec2:DescribeAvailabilityZones"
     ]
-
     resources = ["*"]
-
   }
+
+  statement {
+    effect = "Allow"
+    actions = [
+      "elasticfilesystem:CreateAccessPoint"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/efs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
+  }
+  statement {
+    effect = "Allow"
+    action = [
+      "elasticfilesystem:TagResource"
+    ]
+    resources = ["*"]
+    condition = {
+      "StringLike" : {
+        "aws:ResourceTag/efs.csi.aws.com/cluster" : "true"
+      }
+    }
+  }
+
+  statement {
+    effect    = "Allow"
+    action    = "elasticfilesystem:DeleteAccessPoint"
+    resources = ["*"]
+    condition {
+      test     = "StringLike"
+      variable = "aws:ResourceTag/efs.csi.aws.com/cluster"
+      values   = ["true"]
+    }
+  }
+
   statement {
     actions = [
       "elasticfilesystem:CreateAccessPoint",
