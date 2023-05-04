@@ -36,10 +36,10 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
       "elasticfilesystem:TagResource"
     ]
     resources = ["*"]
-    condition = {
-      "StringLike" : {
-        "aws:ResourceTag/efs.csi.aws.com/cluster" : "true"
-      }
+    condition {
+      test     = "StringLike"
+      variable = "aws:RequestTag/efs.csi.aws.com/cluster"
+      values   = ["true"]
     }
   }
 
