@@ -20,10 +20,28 @@ variable "permissions_boundary" {
   default     = ""
 }
 
-variable "tolerations" {
-  type        = list(map(string))
-  default     = []
-  description = "Tolerations to apply to deployment"
+variable "toleration_key" {
+  type        = string
+  default     = ""
+  description = "toleration key"
+}
+
+variable "toleration_value" {
+  type        = string
+  default     = ""
+  description = "toleration value"
+}
+
+variable "toleration_operator" {
+  type        = string
+  default     = ""
+  description = "toleration operator"
+}
+
+variable "toleration_effect" {
+  type        = string
+  default     = ""
+  description = "toleration effect"
 }
 
 
