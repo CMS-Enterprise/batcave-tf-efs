@@ -1,6 +1,7 @@
 locals {
-  k8s_service_account_namespace = "kube-system"
-  k8s_service_account_name      = "aws-efs-csi-driver"
+  k8s_service_account_namespace   = "kube-system"
+  controller_service_account_name = "efs-csi-controller-sa"
+  node_service_account_name       = "efs-csi-node-sa"
 }
 
 data "aws_caller_identity" "current" {}
@@ -77,8 +78,8 @@ module "iam_assumable_role_admin" {
   provider_url     = replace(var.cluster_oidc_issuer_url, "https://", "")
   role_policy_arns = [aws_iam_policy.batcave_efscsidriver.arn]
   oidc_fully_qualified_subjects = [
-    "system:serviceaccount:${local.k8s_service_account_namespace}:${local.k8s_service_account_name}-controller-sa",
-    "system:serviceaccount:${local.k8s_service_account_namespace}:${local.k8s_service_account_name}-node-sa"
+    "system:serviceaccount:${local.k8s_service_account_namespace}:${local.controller_service_account_name}",
+    "system:serviceaccount:${local.k8s_service_account_namespace}:${local.node_service_account_name}"
   ]
   role_path                     = var.iam_path
   role_permissions_boundary_arn = var.permissions_boundary

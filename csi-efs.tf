@@ -11,7 +11,11 @@ resource "helm_release" "aws-efs-csi-driver" {
   }
   set {
     name  = "controller.serviceAccount.name"
-    value = "efs-csi-controller-sa"
+    value = local.controller_service_account_name
+  }
+  set {
+    name  = "node.serviceAccount.name"
+    value = local.node_service_account_name
   }
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
