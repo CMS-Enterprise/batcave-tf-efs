@@ -21,23 +21,27 @@ variable "permissions_boundary" {
 }
 
 variable "toleration_key" {
-  description = "Key for pod tolerations"
+  type        = string
   default     = ""
+  description = "toleration key"
 }
 
 variable "toleration_value" {
-  description = "Value for pod tolerations"
+  type        = string
   default     = ""
+  description = "toleration value"
 }
 
 variable "toleration_operator" {
-  description = "Operator for pod tolerations"
+  type        = string
   default     = ""
+  description = "toleration operator"
 }
 
 variable "toleration_effect" {
-  description = "Effect for pod tolerations"
+  type        = string
   default     = ""
+  description = "toleration effect"
 }
 
 variable "helm_namespace" {
@@ -75,7 +79,6 @@ variable "vpc_id" {
 }
 
 variable "private_subnet_ids" {
-  description = "IDs of private subnets in VPC"
-  type        = list(any)
-  default     = []
+  type    = list(any)
+  default = []
 }
