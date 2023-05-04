@@ -27,9 +27,6 @@ resource "aws_efs_mount_target" "efs" {
   file_system_id  = aws_efs_file_system.efs.id
   subnet_id       = var.private_subnet_ids[count.index]
   security_groups = [aws_security_group.efs.id]
-
-  # Adding source_security_group_id for added security
-  source_security_group_id = aws_security_group.efs.id
 }
 
 resource "aws_efs_backup_policy" "policy" {
