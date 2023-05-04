@@ -76,7 +76,6 @@ variable "kms_key_id" {
 
 variable "vpc_id" {
   description = "VPC ID for EKS cluster"
-  default     = ""
 }
 
 variable "private_subnet_ids" {
