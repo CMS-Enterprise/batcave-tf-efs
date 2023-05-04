@@ -45,7 +45,7 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
 
   statement {
     effect    = "Allow"
-    actions    = ["elasticfilesystem:DeleteAccessPoint"]
+    actions   = ["elasticfilesystem:DeleteAccessPoint"]
     resources = ["*"]
     condition {
       test     = "StringLike"
