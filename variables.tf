@@ -26,31 +26,6 @@ variable "tolerations" {
   default = []
 }
 
-variable "toleration_key" {
-  type        = string
-  default     = ""
-  description = "toleration key"
-}
-
-variable "toleration_value" {
-  type        = string
-  default     = ""
-  description = "toleration value"
-}
-
-variable "toleration_operator" {
-  type        = string
-  default     = ""
-  description = "toleration operator"
-}
-
-variable "toleration_effect" {
-  type        = string
-  default     = ""
-  description = "toleration effect"
-}
-
-
 variable "helm_namespace" {
   description = "Namespace for Helm chart"
   default     = "kube-system"
