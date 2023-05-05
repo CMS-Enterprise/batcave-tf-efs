@@ -21,6 +21,11 @@ variable "permissions_boundary" {
 }
 
 ### Helm variables
+variable "tolerations" {
+  type    = list(any)
+  default = []
+}
+
 variable "toleration_key" {
   type        = string
   default     = ""
