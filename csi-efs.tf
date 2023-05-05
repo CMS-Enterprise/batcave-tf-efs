@@ -11,7 +11,11 @@ resource "helm_release" "aws-efs-csi-driver" {
   }
   set {
     name  = "controller.serviceAccount.name"
-    value = "efs-csi-controller-sa"
+    value = local.controller_service_account_name
+  }
+  set {
+    name  = "node.serviceAccount.name"
+    value = local.node_service_account_name
   }
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
@@ -68,20 +72,32 @@ resource "helm_release" "aws-efs-csi-driver" {
     name  = "storageClasses[0].volumeBindingMode"
     value = "Immediate"
   }
-  set {
-    name  = "controller.tolerations[0].key"
-    value = var.toleration_key
+  dynamic "set" {
+    for_each = var.tolerations
+    content {
+      name  = "controller.tolerations[${set.key}].key"
+      value = set.value.key
+    }
   }
-  set {
-    name  = "controller.tolerations[0].value"
-    value = var.toleration_value
+  dynamic "set" {
+    for_each = var.tolerations
+    content {
+      name  = "controller.tolerations[${set.key}].value"
+      value = try(set.value.value, "")
+    }
   }
-  set {
-    name  = "controller.tolerations[0].operator"
-    value = var.toleration_operator
+  dynamic "set" {
+    for_each = var.tolerations
+    content {
+      name  = "controller.tolerations[${set.key}].operator"
+      value = set.value.operator
+    }
   }
-  set {
-    name  = "controller.tolerations[0].effect"
-    value = var.toleration_effect
+  dynamic "set" {
+    for_each = var.tolerations
+    content {
+      name  = "controller.tolerations[${set.key}].effect"
+      value = try(set.value.effect, "NoSchedule")
+    }
   }
 }
