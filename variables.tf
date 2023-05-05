@@ -14,6 +14,7 @@ variable "permissions_boundary" {
   #arn:aws:iam::373346310182:policy/cms-cloud-admin/developer-boundary-policy
 }
 
+### Helm variables
 variable "toleration_key" {
   type        = string
   default     = ""
@@ -38,7 +39,7 @@ variable "toleration_effect" {
   description = "toleration effect"
 }
 
-### Helm variables
+
 variable "helm_namespace" {
   default = "kube-system"
 }
@@ -69,4 +70,8 @@ variable "vpc_id" {
 variable "private_subnet_ids" {
   type    = list(any)
   default = []
+}
+
+variable "worker_security_group_id" {
+  type = string
 }
