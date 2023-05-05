@@ -72,32 +72,32 @@ resource "helm_release" "aws-efs-csi-driver" {
     name  = "storageClasses[0].volumeBindingMode"
     value = "Immediate"
   }
-  dynamic "set"{
+  dynamic "set" {
     for_each = var.tolerations
     content {
-        name  = "controller.tolerations[${set.key}].key"
-        value = set.value.key
-    }    
+      name  = "controller.tolerations[${set.key}].key"
+      value = set.value.key
+    }
   }
-  dynamic "set"{
+  dynamic "set" {
     for_each = var.tolerations
     content {
-        name  = "controller.tolerations[${set.key}].value"
-        value = try(set.value.value,"")
-    }    
-  }  
-  dynamic "set"{
+      name  = "controller.tolerations[${set.key}].value"
+      value = try(set.value.value, "")
+    }
+  }
+  dynamic "set" {
     for_each = var.tolerations
     content {
-        name  = "controller.tolerations[${set.key}].operator"
-        value = set.value.operator
-    }    
-  }  
-  dynamic "set"{
+      name  = "controller.tolerations[${set.key}].operator"
+      value = set.value.operator
+    }
+  }
+  dynamic "set" {
     for_each = var.tolerations
     content {
-        name  = "controller.tolerations[${set.key}].effect"
-        value = try(set.value.effect,"NoSchedule")
-    }    
+      name  = "controller.tolerations[${set.key}].effect"
+      value = try(set.value.effect, "NoSchedule")
+    }
   }
 }

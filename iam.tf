@@ -20,11 +20,11 @@ data "aws_iam_policy_document" "batcave_efscsidriver" {
   }
   # Allow creating EFS access points with specific tags
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "elasticfilesystem:CreateAccessPoint",
       "elasticfilesystem:TagResource"
-      ]
+    ]
     resources = ["*"]
     condition {
       test     = "StringLike"
