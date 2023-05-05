@@ -20,6 +20,7 @@ variable "permissions_boundary" {
   default     = ""
 }
 
+### Helm variables
 variable "toleration_key" {
   type        = string
   default     = ""
@@ -81,4 +82,8 @@ variable "vpc_id" {
 variable "private_subnet_ids" {
   type    = list(any)
   default = []
+}
+
+variable "worker_security_group_id" {
+  type = string
 }

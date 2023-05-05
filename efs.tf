@@ -3,6 +3,15 @@ resource "aws_security_group" "efs" {
   vpc_id      = var.vpc_id
 }
 
+resource "aws_security_group_rule" "efs_ingress" {
+  security_group_id        = aws_security_group.efs.id
+  type                     = "ingress"
+  from_port                = 2049
+  to_port                  = 2049
+  protocol                 = "tcp"
+  source_security_group_id = var.worker_security_group_id
+}
+
 data "aws_kms_key" "efs" {
   key_id = var.kms_key_id
 }
