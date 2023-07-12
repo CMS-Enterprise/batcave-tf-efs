@@ -2,6 +2,10 @@ variable "cluster_name" {
   description = "Name of EKS cluster"
 }
 
+variable "account_id" {
+  description = "Account ID for the current AWS account"
+}
+
 variable "cluster_endpoint" {
   description = "Endpoint for EKS cluster"
 }
@@ -66,4 +70,45 @@ variable "private_subnet_ids" {
 
 variable "worker_security_group_id" {
   type = string
+}
+
+variable "backup_start_window_minutes" {
+  type        = number
+  description = "Amount if time (in minutes) before starting a backup job"
+  default     = 60
+}
+variable "backup_completion_window_minutes" {
+  type        = number
+  description = "Amount of time (in minutes) a backup job can run before it is automatically canceled"
+  default     = 180
+}
+
+
+# daily backup settings
+variable "daily_backup_tag_key" {
+  type        = string
+  description = "Tag Key for backing up resources daily"
+  default     = ""
+}
+variable "daily_backup_tag_value" {
+  type        = string
+  description = "Tag Value for backing up resources daily"
+  default     = ""
+}
+
+# tagging
+variable "tags" {
+  type        = map(any)
+  description = "Optional; Map of key-value tags to apply to applicable resources"
+  default     = {}
+}
+variable "tags_backup_vault" {
+  type        = map(any)
+  description = "Optional; Map of key-value tags to apply to all backup vaults"
+  default     = {}
+}
+variable "tags_backup_plan" {
+  type        = map(any)
+  description = "Optional; Map of key-value tags to apply to all backup plans"
+  default     = {}
 }
