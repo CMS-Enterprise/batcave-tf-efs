@@ -28,7 +28,8 @@ data "aws_iam_policy_document" "service_link" {
 }
 
 locals {
-  daily_backup = var.daily_backup_tag_key == "" ? {} : {(var.daily_backup_tag_key) = coalesce(var.daily_backup_tag_value, var.cluster_name)}
+  daily_backup       = var.daily_backup_tag_key == "" ? {} : {(var.daily_backup_tag_key) = coalesce(var.daily_backup_tag_value, var.cluster_name)}
+  daily_backup_value = coalesce(var.daily_backup_tag_value, var.cluster_name)
 }
 
 resource "aws_iam_role" "service_role" {
@@ -72,6 +73,6 @@ resource "aws_backup_selection" "daily" {
   selection_tag {
     type  = "STRINGEQUALS"
     key   = var.daily_backup_tag_key
-    value = var.daily_backup_tag_value
+    value = local.daily_backup_value
   }
 }
