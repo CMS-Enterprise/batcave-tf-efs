@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "vault_policy" {
 
 resource "aws_backup_vault_policy" "efs_backup_vault" {
   backup_vault_name = aws_backup_vault.efs_backup_vault.name
-  policy            = data.aws_iam_policy_document.vault_policy
+  policy            = data.aws_iam_policy_document.vault_policy.json
 }
 
 data "aws_iam_policy_document" "backup_efs_policy" {
