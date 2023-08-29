@@ -94,14 +94,14 @@ data "aws_iam_policy_document" "vault_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [new_role]
+      identifiers = [aws_iam_role.efs_backup_restore_role.arn]
     }
   }
 }
 
 resource "aws_backup_vault_policy" "efs_backup_vault" {
   backup_vault_name = aws_backup_vault.efs_backup_vault.name
-  policy = data.aws_iam_policy_document.vault_policy
+  policy            = data.aws_iam_policy_document.vault_policy
 }
 
 data "aws_iam_policy_document" "backup_efs_policy" {
@@ -151,10 +151,10 @@ data "aws_iam_policy_document" "instance_assume_role_policy" {
 }
 
 resource "aws_iam_role" "efs_backup_restore_role" {
-  name               = "EFSBackupRestoreRole"
-  path               = var.iam_path
-  permissions_boundary  = var.permissions_boundary
-  assume_role_policy = data.aws_iam_policy_document.instance_assume_role_policy.json
+  name                 = "EFSBackupRestoreRole"
+  path                 = var.iam_path
+  permissions_boundary = var.permissions_boundary
+  assume_role_policy   = data.aws_iam_policy_document.instance_assume_role_policy.json
 }
 
 resource "aws_iam_role_policy_attachment" "efs_backup_restore_attach" {
