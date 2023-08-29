@@ -45,3 +45,11 @@ resource "aws_efs_backup_policy" "policy" {
     status = "ENABLED"
   }
 }
+
+resource "aws_backup_vault" "efs_backup_vault" {
+  name        = "aws/efs/automatic-backup-vault"
+  kms_key_arn = data.aws_kms_key.efs.arn
+  tags = {
+    Name = var.cluster_name
+  }
+}
