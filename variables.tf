@@ -112,3 +112,22 @@ variable "tags_backup_plan" {
   description = "Optional; Map of key-value tags to apply to all backup plans"
   default     = {}
 }
+
+# Creating variables for storageclass
+variable "directory_perms" {
+  type        = string
+  description = "Storage Class directory permissions"
+  default     = "700"
+}
+
+variable "gid_range_start" {
+  type        = string
+  description = "Storage Class directory permissions"
+  default     = "100"
+}
+
+variable "gid_range_end" {
+  type        = string
+  description = "Storage Class directory permissions"
+  default     = "2000"
+}
