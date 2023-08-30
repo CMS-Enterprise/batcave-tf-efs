@@ -51,17 +51,17 @@ resource "helm_release" "aws-efs-csi-driver" {
   }
   set {
     name  = "storageClasses[0].parameters.directoryPerms"
-    value = "700"
+    value = var.directory_perms
     type  = "string"
   }
   set {
     name  = "storageClasses[0].parameters.gidRangeStart"
-    value = "1000"
+    value = var.gid_range_start
     type  = "string"
   }
   set {
     name  = "storageClasses[0].parameters.gidRangeEnd"
-    value = "2000"
+    value = var.gid_range_end
     type  = "string"
   }
   set {
