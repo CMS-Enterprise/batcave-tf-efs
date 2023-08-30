@@ -81,7 +81,7 @@ data "aws_iam_policy_document" "vault_policy" {
   statement {
     sid       = "default"
     effect    = "Allow"
-    resources = ["${aws_backup_vault.efs_backup_vault.arn}"]
+    resources = ["*"]
 
     actions = [
       "backup:DeleteBackupVault",
