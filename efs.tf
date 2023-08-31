@@ -22,7 +22,7 @@ resource "aws_efs_file_system" "efs" {
   encrypted  = true
   kms_key_id = data.aws_kms_key.efs.arn
 
-  tags = merge({ Name = var.cluster_name }, local.daily_backup_tag)
+  tags = merge(var.tags, { Name = var.cluster_name }, local.daily_backup_tag)
 
   lifecycle_policy {
     transition_to_ia = "AFTER_60_DAYS"
