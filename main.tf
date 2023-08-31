@@ -28,8 +28,9 @@ data "aws_iam_policy_document" "service_link" {
 }
 
 locals {
-  daily_backup       = var.daily_backup_tag_key == "" ? {} : {(var.daily_backup_tag_key) = coalesce(var.daily_backup_tag_value, var.cluster_name)}
-  daily_backup_value = coalesce(var.daily_backup_tag_value, var.cluster_name)
+  daily_backup_key   = coalesce(var.daily_backup_tag_key, "${var.cluster_name}_efs_daily_backup")
+  daily_backup_value = coalesce(var.daily_backup_tag_value, "true")
+  daily_backup_tag   = { (local.daily_backup_key) = local.daily_backup_value }
 }
 
 resource "aws_iam_role" "service_role" {
@@ -44,13 +45,13 @@ resource "aws_iam_role_policy_attachment" "service_role_attachment" {
 }
 
 resource "aws_backup_vault" "daily" {
-  name    = "${var.cluster_name}_daily_backup"
-  tags    = merge(var.tags, var.tags_backup_vault, local.daily_backup)
+  name = "${var.cluster_name}_efs_daily_backup"
+  tags = merge(var.tags, var.tags_backup_vault, local.daily_backup_tag)
 }
 
 resource "aws_backup_plan" "daily" {
   name = "${var.cluster_name}_daily_backup"
-  tags = merge(var.tags, var.tags_backup_plan, local.daily_backup)
+  tags = merge(var.tags, var.tags_backup_plan, local.daily_backup_tag)
 
   rule {
     rule_name         = "${var.cluster_name}_daily_backup"
@@ -60,7 +61,7 @@ resource "aws_backup_plan" "daily" {
     completion_window = var.backup_completion_window_minutes
 
     lifecycle {
-      delete_after = 30
+      delete_after = var.daily_backup_days_to_retain
     }
   }
 }
@@ -72,7 +73,7 @@ resource "aws_backup_selection" "daily" {
 
   selection_tag {
     type  = "STRINGEQUALS"
-    key   = var.daily_backup_tag_key
+    key   = local.daily_backup_key
     value = local.daily_backup_value
   }
 }
