@@ -90,10 +90,17 @@ variable "daily_backup_tag_key" {
   description = "Tag Key for backing up resources daily"
   default     = ""
 }
+
 variable "daily_backup_tag_value" {
   type        = string
   description = "Tag Value for backing up resources daily"
   default     = ""
+}
+
+variable "daily_backup_days_to_retain" {
+  type        = string
+  description = "Days to retain the backup vault backups"
+  default     = "30"
 }
 
 # tagging
@@ -131,3 +138,4 @@ variable "gid_range_end" {
   description = "Storage Class directory permissions"
   default     = "2000"
 }
+
