@@ -76,3 +76,89 @@ module "iam_assumable_role_admin" {
   role_path                     = var.iam_path
   role_permissions_boundary_arn = var.permissions_boundary
 }
+
+
+data "aws_iam_policy_document" "vault_policy" {
+  statement {
+    sid       = "default"
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "backup:DeleteBackupVault",
+      "backup:DeleteBackupVaultAccessPolicy",
+      "backup:DeleteRecoveryPoint",
+      "backup:StartCopyJob",
+      "backup:StartRestoreJob",
+      "backup:UpdateRecoveryPointLifecycle"
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.efs_backup_restore_role.arn]
+    }
+  }
+}
+
+resource "aws_backup_vault_policy" "efs_backup_vault" {
+  backup_vault_name = aws_backup_vault.daily.name
+  policy            = data.aws_iam_policy_document.vault_policy.json
+}
+
+data "aws_iam_policy_document" "backup_efs_policy" {
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "elasticfilesystem:Restore",
+      "elasticfilesystem:CreateFilesystem",
+      "elasticfilesystem:DescribeFilesystems",
+      "elasticfilesystem:DeleteFilesystem",
+    ]
+  }
+
+  statement {
+    sid       = ""
+    effect    = "Allow"
+    resources = ["*"]
+
+    actions = [
+      "kms:DescribeKey",
+      "kms:GenerateDataKeyWithoutPlaintext",
+      "kms:CreateGrant",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "efs_kms_backup_restore" {
+  name        = "EFSBackupRestore"
+  description = "Policy for EFS backup and restore with KMS encryption"
+  path        = var.iam_path
+
+  policy = data.aws_iam_policy_document.backup_efs_policy.json
+}
+
+data "aws_iam_policy_document" "backup_assume_role_policy" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["backup.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "efs_backup_restore_role" {
+  name                 = "EFSBackupRestoreRole"
+  path                 = var.iam_path
+  permissions_boundary = var.permissions_boundary
+  assume_role_policy   = data.aws_iam_policy_document.backup_assume_role_policy.json
+}
+
+resource "aws_iam_role_policy_attachment" "efs_backup_restore_attach" {
+  policy_arn = aws_iam_policy.efs_kms_backup_restore.arn
+  role       = aws_iam_role.efs_backup_restore_role.name
+}
