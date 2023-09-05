@@ -24,6 +24,16 @@ variable "permissions_boundary" {
   default     = ""
 }
 
+variable "iam_backup_restore_role_name" {
+  type    = string
+  default = "EFSBackupRestoreRole"
+}
+
+variable "backup_restore_policy_name" {
+  type    = string
+  default = "EFSBackupRestore"
+}
+
 ### Helm variables
 variable "tolerations" {
   type    = list(any)
@@ -138,4 +148,3 @@ variable "gid_range_end" {
   description = "Storage Class directory permissions"
   default     = "2000"
 }
-
