@@ -80,7 +80,6 @@ module "iam_assumable_role_admin" {
 
 data "aws_iam_policy_document" "vault_policy" {
   statement {
-    sid       = "default"
     effect    = "Allow"
     resources = ["*"]
 
@@ -107,9 +106,8 @@ resource "aws_backup_vault_policy" "efs_backup_vault" {
 
 data "aws_iam_policy_document" "backup_efs_policy" {
   statement {
-    sid       = ""
     effect    = "Allow"
-    resources = ["*"]
+    resources = [aws_efs_file_system.efs.arn]
 
     actions = [
       "elasticfilesystem:Restore",
@@ -120,9 +118,8 @@ data "aws_iam_policy_document" "backup_efs_policy" {
   }
 
   statement {
-    sid       = ""
     effect    = "Allow"
-    resources = ["*"]
+    resources = [data.aws_kms_key.efs.arn]
 
     actions = [
       "kms:DescribeKey",
@@ -133,7 +130,7 @@ data "aws_iam_policy_document" "backup_efs_policy" {
 }
 
 resource "aws_iam_policy" "efs_kms_backup_restore" {
-  name        = "EFSBackupRestore"
+  name        = var.backup_restore_policy_name
   description = "Policy for EFS backup and restore with KMS encryption"
   path        = var.iam_path
 
@@ -152,7 +149,7 @@ data "aws_iam_policy_document" "backup_assume_role_policy" {
 }
 
 resource "aws_iam_role" "efs_backup_restore_role" {
-  name                 = "EFSBackupRestoreRole"
+  name                 = "${var.cluster_name}-${var.iam_backup_restore_role_name}"
   path                 = var.iam_path
   permissions_boundary = var.permissions_boundary
   assume_role_policy   = data.aws_iam_policy_document.backup_assume_role_policy.json
