@@ -99,7 +99,18 @@ data "aws_iam_policy_document" "vault_policy" {
   }
 }
 
+//Adding this because a bug in the provider is causing implicit dependencies to not be enough
+//Explict dependencies also don't work
+//See https://github.com/hashicorp/terraform-provider-aws/issues/33173
+//Once this bug if fixed we can delete both this resource block along with the depends_on on the vault policy below
+resource "time_sleep" "iam_delay" {
+  depends_on = [ aws_iam_role.efs_backup_restore_role ]
+
+  create_duration = "20s"
+}
+
 resource "aws_backup_vault_policy" "efs_backup_vault" {
+  depends_on = [ time_sleep.iam_delay ]
   backup_vault_name = aws_backup_vault.daily.name
   policy            = data.aws_iam_policy_document.vault_policy.json
 }
