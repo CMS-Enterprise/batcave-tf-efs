@@ -148,3 +148,9 @@ variable "gid_range_end" {
   description = "Storage Class directory permissions"
   default     = "2000"
 }
+
+variable "daily_backup_force_destroy" {
+  type        = bool
+  description = "Force destroy the backup vault"
+  default     = false
+}
