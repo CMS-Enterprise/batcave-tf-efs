@@ -45,8 +45,9 @@ resource "aws_iam_role_policy_attachment" "service_role_attachment" {
 }
 
 resource "aws_backup_vault" "daily" {
-  name = "${var.cluster_name}_efs_daily_backup"
-  tags = merge(var.tags, var.tags_backup_vault, local.daily_backup_tag)
+  name          = "${var.cluster_name}_efs_daily_backup"
+  tags          = merge(var.tags, var.tags_backup_vault, local.daily_backup_tag)
+  force_destroy = var.daily_backup_force_destroy
 }
 
 resource "aws_backup_plan" "daily" {
