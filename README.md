@@ -53,7 +53,6 @@ No requirements.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_id"></a> [account\_id](#input\_account\_id) | Account ID for the current AWS account | `any` | n/a | yes |
 | <a name="input_backup_completion_window_minutes"></a> [backup\_completion\_window\_minutes](#input\_backup\_completion\_window\_minutes) | Amount of time (in minutes) a backup job can run before it is automatically canceled | `number` | `180` | no |
 | <a name="input_backup_restore_policy_name"></a> [backup\_restore\_policy\_name](#input\_backup\_restore\_policy\_name) | n/a | `string` | `"EFSBackupRestore"` | no |
 | <a name="input_backup_start_window_minutes"></a> [backup\_start\_window\_minutes](#input\_backup\_start\_window\_minutes) | Amount if time (in minutes) before starting a backup job | `number` | `60` | no |
@@ -66,7 +65,6 @@ No requirements.
 | <a name="input_daily_backup_tag_key"></a> [daily\_backup\_tag\_key](#input\_daily\_backup\_tag\_key) | Tag Key for backing up resources daily | `string` | `""` | no |
 | <a name="input_daily_backup_tag_value"></a> [daily\_backup\_tag\_value](#input\_daily\_backup\_tag\_value) | Tag Value for backing up resources daily | `string` | `""` | no |
 | <a name="input_directory_perms"></a> [directory\_perms](#input\_directory\_perms) | Storage Class directory permissions | `string` | `"700"` | no |
-| <a name="input_efsid"></a> [efsid](#input\_efsid) | EFS filesystem ID | `string` | `""` | no |
 | <a name="input_gid_range_end"></a> [gid\_range\_end](#input\_gid\_range\_end) | Storage Class directory permissions | `string` | `"2000"` | no |
 | <a name="input_gid_range_start"></a> [gid\_range\_start](#input\_gid\_range\_start) | Storage Class directory permissions | `string` | `"100"` | no |
 | <a name="input_helm_name"></a> [helm\_name](#input\_helm\_name) | Name for Helm release | `string` | `"aws-efs-csi-driver"` | no |
