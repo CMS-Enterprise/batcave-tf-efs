@@ -2,10 +2,6 @@ variable "cluster_name" {
   description = "Name of EKS cluster"
 }
 
-variable "account_id" {
-  description = "Account ID for the current AWS account"
-}
-
 variable "cluster_endpoint" {
   description = "Endpoint for EKS cluster"
 }
@@ -48,11 +44,6 @@ variable "helm_namespace" {
 variable "imagerepo" {
   description = "ECR repository for container images"
   default     = "602401143452.dkr.ecr.us-west-2.amazonaws.com/eks/aws-efs-csi-driver"
-}
-
-variable "efsid" {
-  description = "EFS filesystem ID"
-  default     = ""
 }
 
 variable "helm_name" {
