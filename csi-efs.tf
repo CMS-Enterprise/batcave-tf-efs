@@ -4,7 +4,7 @@ resource "helm_release" "aws-efs-csi-driver" {
   name       = var.helm_name
   repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver"
   chart      = "aws-efs-csi-driver"
-  version    = "2.2.9"
+  version    = "2.5.7"
   set {
     name  = "image.repository"
     value = var.imagerepo
